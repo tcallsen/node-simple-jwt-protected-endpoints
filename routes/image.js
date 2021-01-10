@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const verifyToken = require('./token').verifyToken;
+const verifyToken = require('../middlewares/verifyToken')
 
 const AWS = require('aws-sdk')
 AWS.config.update({
@@ -15,27 +15,25 @@ const s3 = new AWS.S3()
 const myBucket = process.env.s3Bucket
 
 // get protected image from s3 via pre-signed URL
-router.get('/*', function(req, res, next) {
-  if (verifyToken(req)) {
+router.get('/*', verifyToken, function(req, res, next) {
 
-    const myKey = req.url.substring(1) // get s3 key from request path - remove first slash
-    const signedUrlExpireSeconds = 60 * 10
+  const myKey = req.url.substring(1) // get s3 key from request path - remove first slash
+  const signedUrlExpireSeconds = 60 * 10
 
-    s3.getSignedUrl('getObject', {
-      Bucket: myBucket,
-      Key: myKey,
-      Expires: signedUrlExpireSeconds
-    }, function (err, url) {
-      if (!err) res.redirect(url)
-      else {
-        res.status(500).json({
-          success: false,
-          status: err,
-          url: url
-        })
-      }
-    })
-  } else res.status(401).json({ success: false, status: 'failed to verify token' })
+  s3.getSignedUrl('getObject', {
+    Bucket: myBucket,
+    Key: myKey,
+    Expires: signedUrlExpireSeconds
+  }, function (err, url) {
+    if (!err) res.redirect(url)
+    else {
+      res.status(500).json({
+        success: false,
+        status: err,
+        url: url
+      })
+    }
+  })
 })
 
 module.exports = router
