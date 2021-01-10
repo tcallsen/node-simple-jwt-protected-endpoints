@@ -11,8 +11,8 @@ console.log('cert secret key loaded from ' + process.env.privateKeyPath)
 
 // get token from certificate private key
 router.get('/', function(req, res, next) {
-  const payload = { foo: 'bar' }
-  const token = jwt.sign(payload, secretKey, { algorithm: 'RS256' })
+  const payload = { access: 'image' }
+  const token = jwt.sign(payload, secretKey, { algorithm: 'RS256', expiresIn: 60 * 10 })
   
   res.json({ success: true, access_token: token })
 })

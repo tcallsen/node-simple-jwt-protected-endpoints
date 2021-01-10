@@ -10,20 +10,19 @@ AWS.config.update({
   secretAccessKey: process.env.s3SecretKey,
   region: process.env.s3region
 })
-AWS.config.region = 'us-west-1';
 const s3 = new AWS.S3()
-const myBucket = process.env.s3Bucket
+const s3Bucket = process.env.s3Bucket
 
 // get protected image from s3 via pre-signed URL
 router.get('/*', verifyToken, function(req, res, next) {
 
-  const myKey = req.url.substring(1) // get s3 key from request path - remove first slash
-  const signedUrlExpireSeconds = 60 * 10
+  // derive s3 key from request path and remove first slash
+  const s3ImageKey = req.url.substring(1)
 
   s3.getSignedUrl('getObject', {
-    Bucket: myBucket,
-    Key: myKey,
-    Expires: signedUrlExpireSeconds
+    Bucket: s3Bucket,
+    Key: s3ImageKey,
+    Expires: 60 * 10 // seconds
   }, function (err, url) {
     if (!err) res.redirect(url)
     else {
