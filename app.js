@@ -5,7 +5,8 @@ var logger = require('morgan');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
-var tokenRouter = require('./routes/token');
+var tokenRouter = require('./routes/token').router; // multiple exports
+var imageRouter = require('./routes/image');
 
 var app = express();
 
@@ -17,5 +18,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/token', tokenRouter);
+app.use('/image', imageRouter);
 
 module.exports = app;
