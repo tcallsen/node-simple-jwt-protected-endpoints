@@ -1,16 +1,16 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
-var jwt = require('jsonwebtoken')
-var fs = require('fs')
+const jwt = require('jsonwebtoken')
+const fs = require('fs')
 
-var secretKey = fs.readFileSync(process.env.privateKeyPath, 'utf8');
-var publicCert = fs.readFileSync(process.env.publicKeyPath, 'utf8');
+const secretKey = fs.readFileSync(process.env.privateKeyPath, 'utf8')
+const publicCert = fs.readFileSync(process.env.publicKeyPath, 'utf8')
 
 // get token from certificate private key
 router.get('/', function(req, res, next) {
-  var payload = { foo: 'bar' };
-  var token = jwt.sign(payload, secretKey, { algorithm: 'RS256' });
+  const payload = { foo: 'bar' }
+  const token = jwt.sign(payload, secretKey, { algorithm: 'RS256' })
   
   res.json({ success: true, access_token: token })
 })
@@ -19,8 +19,8 @@ router.get('/', function(req, res, next) {
 router.get('/verify', function(req, res, next) {
   try {
     const authorizationHeader = req.headers['authorization']
-    const authorziation = authorizationHeader.split(' ');
-    const bearerToken = authorziation[1];
+    const authorziation = authorizationHeader.split(' ')
+    const bearerToken = authorziation[1]
     jwt.verify(bearerToken, publicCert, { algorithm: 'RS256' })
 
     res.json({ success: true, status: 'token verified' })
@@ -29,7 +29,7 @@ router.get('/verify', function(req, res, next) {
     console.error('failed to parse token - may be missing Authorization header', e)
   }
   
-  res.status(401).json({ success: false, status: 'failed to verify token' });
+  res.status(401).json({ success: false, status: 'failed to verify token' })
 })
 
 module.exports = router
