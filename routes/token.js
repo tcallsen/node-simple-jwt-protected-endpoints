@@ -4,8 +4,8 @@ var router = express.Router()
 var jwt = require('jsonwebtoken')
 var fs = require('fs')
 
-var secretKey = fs.readFileSync(__dirname + '/../privateKey.pem', 'utf8');
-var publicCert = fs.readFileSync(__dirname + '/../publicKey.pem', 'utf8');
+var secretKey = fs.readFileSync(process.env.privateKeyPath, 'utf8');
+var publicCert = fs.readFileSync(process.env.publicKeyPath, 'utf8');
 
 // get token from certificate private key
 router.get('/', function(req, res, next) {
@@ -24,6 +24,7 @@ router.get('/verify', function(req, res, next) {
     jwt.verify(bearerToken, publicCert, { algorithm: 'RS256' })
 
     res.json({ success: true, status: 'token verified' })
+    return
   } catch (e) {
     console.error('failed to parse token - may be missing Authorization header', e)
   }
