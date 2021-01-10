@@ -7,7 +7,7 @@ const fs = require('fs')
 const verifyToken = require('../middlewares/verifyToken')
 
 const secretKey = fs.readFileSync(process.env.privateKeyPath, 'utf8')
-console.log('cert secret key loaded from ' + process.env.privateKeyPath)
+console.log('cert secret key loaded from file path: ' + process.env.privateKeyPath)
 
 // get token from certificate private key
 router.get('/', function(req, res, next) {
