@@ -22,8 +22,8 @@ publicKeyPath=<local path to PEM certificate public key file>
 # aws s3
 s3AccessKey=<s3 access key>
 s3SecretKey=<s3 secret key>
-s3region=<s3 region>
-s3Bucket=<s3 bucket name>
+s3region=<s3 region, e.g. us-west-1>
+s3Bucket=<s3 bucket name, e.g. callsen-gallery-dev>
 ```
 
 ## Launch Development Server
@@ -44,7 +44,7 @@ Returns a signed JTW token required for the other two routes (no credentials nec
 
 Verifies the supplied JWT token in the `Authorization` header (bearer token).
 
-#### GET http://localhost:3000/image/&lt;s3-resource-key&gt;
+#### GET http://localhost:3000/image/<s3-resource-key&gt;
 
 Redirects to a presigned URL for the supplied S3 resource. Requires a valid JWT token in the `Authorization` header (bearer token).
 
