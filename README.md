@@ -50,4 +50,4 @@ Redirects to a presigned URL for the supplied S3 resource. Requires a valid JWT 
 
 ## Development Environment
 
-This application was bootstrapped with `express-generator`, and developed with Node version v14.15.3
+This application was bootstrapped with `express-generator`, and uses `nodemon` to automatically update the Express server when code changes are detected. This example was developed with Node version v14.15.3
