@@ -1,8 +1,8 @@
 ### Overview
 
-Generates AWS S3 presigned URLs from a NodeJS REST endpoint. The endpoint requires a valid JWT token, and returns a 302 redirect to the S3 resource upon success.
+Generates AWS S3 presigned URLs from a NodeJS Express REST endpoint. The endpoint requires a valid JWT token, and returns a 302 redirect to the S3 resource upon success.
 
-The JWT tokens are signed and verified with PEM encoded SSL Certificates (same certificates used on HTTPS websites).
+The JWT tokens are signed and verified with PEM encoded SSL Certificates (same certificates used on HTTPS websites). Token validation occurs in an Express middleware.
 
 ## Install
 
@@ -12,12 +12,12 @@ Install the dependencies with the following command:
 
 ## Configuration (Env File)
 
-A `.env` file is used to specify pertinent SSL Certificate and S3 information, and is required for the example to run. An example `.env` file required keys is provided below.
+A `.env` file is used to specify SSL Certificate and S3 information. An example `.env` file with the required keys is provided below.
 
 ```
 # jwt signing certificates
 privateKeyPath=<local path to PEM certificate private key file>
-publicKeyCertUrl=<website url with corresponding Public certificate>
+publicKeyPath=<local path to PEM certificate public key file>
 
 # aws s3
 s3AccessKey=<s3 access key>
@@ -42,7 +42,7 @@ Returns a signed JTW token required for the other two routes (no credentials nec
 
 #### GET http://localhost:3000/token/verify
 
-Verifies the supplied JWT token in the `Authorization` header (bearer token)
+Verifies the supplied JWT token in the `Authorization` header (bearer token).
 
 #### GET http://localhost:3000/image/&lt;s3-resource-key&gt;
 
