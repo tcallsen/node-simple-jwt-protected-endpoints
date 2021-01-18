@@ -2,7 +2,7 @@
 
 Generates AWS S3 presigned URLs from a NodeJS Express REST endpoint. The endpoint requires a valid JWT token, and returns a 302 redirect to the S3 resource upon success.
 
-The JWT tokens are signed and verified with PEM encoded SSL Certificates (same certificates used on HTTPS websites). Token validation occurs in an Express middleware.
+The JWT tokens are signed and verified with PEM encoded X.509 SSL Certificates (same certificates used on HTTPS websites). Token validation occurs in an Express middleware.
 
 ## Install
 
