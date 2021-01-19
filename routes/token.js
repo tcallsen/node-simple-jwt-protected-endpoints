@@ -11,7 +11,15 @@ console.log('cert secret key loaded from file path: ' + process.env.privateKeyPa
 
 // get token from certificate private key
 router.get('/', function(req, res, next) {
-  const payload = { access: 'image' }
+  
+  // payload defines access to specific routes (by URL path)
+  const payload = { access: [
+    '/token',
+    '/token/verify',
+    '/image',
+    '/image/metadata'
+  ]}
+
   const token = jwt.sign(payload, secretKey, { algorithm: 'RS256', expiresIn: 60 * 10 })
   
   res.json({ success: true, access_token: token })
