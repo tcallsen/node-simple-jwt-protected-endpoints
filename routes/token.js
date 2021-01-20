@@ -9,7 +9,7 @@ const verifyToken = require('../middlewares/verifyToken')
 const secretKey = fs.readFileSync(process.env.privateKeyPath, 'utf8')
 console.log('cert secret key loaded from file path: ' + process.env.privateKeyPath)
 
-// get token from certificate private key
+// route: get token from certificate private key
 router.get('/', function(req, res, next) {
   
   // payload defines access to specific routes (by URL path)
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
     '/token',
     '/token/verify',
     '/image',
-    '/image/metadata'
+    // '/image/metadata'
   ]}
 
   const token = jwt.sign(payload, secretKey, { algorithm: 'RS256', expiresIn: 60 * 10 })
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
   res.json({ success: true, access_token: token })
 })
 
-// verify token against certificate public key
+// route: verify token against certificate public key
 router.get('/verify', verifyToken, function(req, res, next) {
   res.json({ success: true, status: 'token verified' })
 })

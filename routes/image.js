@@ -6,7 +6,7 @@ const path = require('path')
 
 const verifyToken = require('../middlewares/verifyToken')
 
-// get image
+// route: get image file
 router.get('/', verifyToken, function(req, res, next) {
 
   const s = fs.createReadStream(path.join(__dirname, '..', 'sample_data', 'image.jpg'))
@@ -17,7 +17,7 @@ router.get('/', verifyToken, function(req, res, next) {
   
 })
 
-// get image metadata
+// route: get image json metadata
 router.get('/metadata', verifyToken, function(req, res, next) {
   res.setHeader('Content-Type', 'application/json')
   res.sendFile(path.join(__dirname, '..', 'sample_data' , 'metadata.json'))
