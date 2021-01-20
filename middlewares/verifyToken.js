@@ -1,8 +1,14 @@
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 
-const publicCert = fs.readFileSync(process.env.publicKeyPath, 'utf8')
-console.log('cert public key loaded from file path: ' + process.env.publicKeyPath)
+const sslCertificate = require('get-ssl-certificate')
+
+// load public certificate key from configured public url
+let publicCert
+sslCertificate.get(process.env.publicKeyCertUrl).then(function (certificate) {
+  publicCert = certificate.pemEncoded
+  console.log('cert public key loaded from url: ' + process.env.publicKeyCertUrl)
+})
 
 // token verification middleware
 const verifyToken = (req, res, next) => {
