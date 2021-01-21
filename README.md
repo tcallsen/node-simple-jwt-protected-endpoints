@@ -7,6 +7,8 @@ Example NodeJS Express server that provides:
 - Express middleware that verifies bearer tokens using the corresponding X.509 certificate public key ([middlewares/verifyToken.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/middlewares/verifyToken.js))
 - JWT token payload validation to ensure access to the requested urls is granted ([middlewares/verifyToken.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/middlewares/verifyToken.js#L26))
 
+![Authentication with JWTs](https://taylor.callsen.me/wp-content/uploads/2021/01/JWT-protected-endpoints-v2.svg)
+
 ## Install
 
 Install the dependencies with the following command:
