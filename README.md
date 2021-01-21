@@ -2,10 +2,10 @@
 
 Example NodeJS Express server that provides:
 
-- REST endpoint that generates JWT access tokens signed with an X.509 certificate private key
-- Example "protected" REST endpoints that require valid JWT bearer tokens
-- Express middleware that verifies bearer tokens using the corresponding X.509 certificate public key
-- JWT token payload validation to ensure access to the requested urls is granted
+- REST endpoint that generates JWT access tokens signed with an X.509 certificate private key ([routes/token.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/routes/token.js#L13))
+- Example "protected" REST endpoints that require valid JWT bearer tokens ([routes/image.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/routes/image.js#L10))
+- Express middleware that verifies bearer tokens using the corresponding X.509 certificate public key([middlewares/verifyToken.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/middlewares/verifyToken.js))
+- JWT token payload validation to ensure access to the requested urls is granted ([middlewares/verifyToken.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/middlewares/verifyToken.js#L26))
 
 ## Install
 
