@@ -49,7 +49,7 @@ Protected endpoint that returns a sample JPEG image file.
 
 Protected endpoint that returns sample JSON metadata about an image. 
 
-This route is not granted by default, and will return a 401 even with the bearer token. The route must be enabled/uncommented in the `routes/token.js` to become accessible.
+This route is not granted by default, and will return a 401 even with the bearer token. The route must be enabled/uncommented in the [routes/token.js](https://github.com/tcallsen/node-simple-jwt-protected-endpoints/blob/master/routes/token.js#L20) to become accessible.
 
 ## Development Environment
 
